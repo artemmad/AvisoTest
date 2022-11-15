@@ -1,5 +1,6 @@
 package org.example;
 
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,7 +53,25 @@ public class Main {
             WatchYoutubeTest wut = new WatchYoutubeTest(driver, vars, js);
             try {
                 wut.watchYoutube();
-            } catch (Exception e) {
+            }
+            catch (ElementNotInteractableException e){
+                System.out.println("Maybe youtube video was not loaded");
+                e.printStackTrace();
+                String originalHandle = driver.getWindowHandle();
+
+                //Do something to open new tabs
+
+                for(String handle : driver.getWindowHandles()) {
+                    if (!handle.equals(originalHandle)) {
+                        driver.switchTo().window(handle);
+                        driver.close();
+                    }
+                }
+
+                driver.switchTo().window(originalHandle);
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
                 e.printStackTrace();
                 Thread.sleep(1000);
             }

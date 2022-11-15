@@ -39,7 +39,7 @@ public class WatchYoutubeTest {
     for(; ; ) {
       driver.get("https://aviso.bz/work-youtube");
       driver.manage().window().setSize(new Dimension(1280, 720));
-      driver.findElement(By.xpath("//span[contains(@title,'youtube')]")).click();
+      driver.findElement(By.xpath("//span[contains(@title,'youtube.com/watch')]")).click();
       {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.textToBe(By.cssSelector(".go-link-youtube"), "Приступить к выполнению"));
