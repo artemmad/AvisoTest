@@ -33,16 +33,17 @@ public class WatchYoutubeTest {
     return whNow.iterator().next();
   }
 
-  public void watchYoutube() {
+  public void watchYoutube() throws InterruptedException {
     System.out.println("Start watching youtube videos");
     Integer times = 0;
     for(; ; ) {
       driver.get("https://aviso.bz/work-youtube");
       driver.manage().window().setSize(new Dimension(1280, 720));
+      Thread.sleep(1000);
       driver.findElement(By.xpath("//span[contains(@title,'youtube.com/watch')]")).click();
       {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.textToBe(By.cssSelector(".go-link-youtube"), "Приступить к выполнению"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//span[contains(@class, \"go-link-youtube\")]"), "Приступить к выполнению"));
       }
       try {
         Thread.sleep(2000);
@@ -50,7 +51,8 @@ public class WatchYoutubeTest {
         e.printStackTrace();
       }
       vars.put("window_handles", driver.getWindowHandles());
-      driver.findElement(By.cssSelector(".go-link-youtube")).click();
+      Thread.sleep(1000);
+      driver.findElement(By.xpath("//span[contains(@class, \"go-link-youtube\")]")).click();
       vars.put("win6679", waitForWindow(2000));
       vars.put("root", driver.getWindowHandle());
       driver.switchTo().window(vars.get("win6679").toString());
