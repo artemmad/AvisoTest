@@ -39,16 +39,15 @@ public class WatchYoutubeTest {
     for(; ; ) {
       driver.get("https://aviso.bz/work-youtube");
       driver.manage().window().setSize(new Dimension(1280, 720));
-      Thread.sleep(1000);
+//      Thread.sleep(5000);
+      {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@title,'youtube.com/watch')]")));
+      }
       driver.findElement(By.xpath("//span[contains(@title,'youtube.com/watch')]")).click();
       {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.textToBe(By.xpath("//span[contains(@class, \"go-link-youtube\")]"), "Приступить к выполнению"));
-      }
-      try {
-        Thread.sleep(2000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, \"go-link-youtube\")]")));
       }
       vars.put("window_handles", driver.getWindowHandles());
       Thread.sleep(1000);
@@ -109,6 +108,7 @@ public class WatchYoutubeTest {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
+      times++;
       System.out.println("Watched youtube videos counter: " + times);
     }
   }

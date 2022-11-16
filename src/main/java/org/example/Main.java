@@ -17,7 +17,7 @@ public class Main {
     private static Map<String, Object> vars;
     static JavascriptExecutor js;
 
-    private static Integer minutesToSleep = 2;
+    private static Integer minutesToSleep = 5;
 
     public static void main(String[] args) throws InterruptedException {
 
