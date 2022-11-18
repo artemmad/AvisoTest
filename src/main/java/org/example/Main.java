@@ -1,5 +1,6 @@
 package org.example;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +12,14 @@ import java.util.Map;
 import java.util.Scanner;
 
 
+@Slf4j
 public class Main {
 
     private static WebDriver driver;
     private static Map<String, Object> vars;
     static JavascriptExecutor js;
 
-    private static Integer minutesToSleep = 5;
+    private static Integer minutesToSleep = 3;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -28,7 +30,7 @@ public class Main {
         vars = new HashMap<String, Object>();
 
         driver.get("https://aviso.bz");
-        System.out.println("please authenticate in opened tab, and hit any key");
+        log.info("please authenticate in opened tab, and hit any key");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
 
@@ -55,7 +57,7 @@ public class Main {
                 wut.watchYoutube();
             }
             catch (ElementNotInteractableException e){
-                System.out.println("Maybe youtube video was not loaded");
+                log.info("Maybe youtube video was not loaded");
                 e.printStackTrace();
                 String originalHandle = driver.getWindowHandle();
 
@@ -77,9 +79,9 @@ public class Main {
             }
 
             try {
-                System.out.println("I'm going to sleep for "+ minutesToSleep + " minutes. See you soon");
+                log.info("I'm going to sleep for "+ minutesToSleep + " minutes. See you soon");
                 Thread.sleep(minutesToSleep * 60000);
-                System.out.println("It's time to wake up and start watching ads");
+                log.info("It's time to wake up and start watching ads");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
